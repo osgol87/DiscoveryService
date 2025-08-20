@@ -38,22 +38,37 @@ services:
     networks:
       - microservice-net
 
+#  product-service:
+#    build: ./ProductService
+#    container_name: product-service-container
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      EUREKA_URL: http://eureka-server:8761/eureka/
+#      PRODUCTSERVICE_DB_URL: jdbc:postgresql://postgres-db:5432/postgres
+#      PRODUCTSERVICE_DB_USER: postgres
+#      PRODUCTSERVICE_DB_PASS: postgresql
+#      PRODUCTSERVICE_DDL_AUTO: create
+#    networks:
+#      - microservice-net
+#    depends_on:
+#      - eureka-server
+#      - postgres-db
+
   product-service:
-    build: ./ProductService
+    build: ./ProductServiceElastic
     container_name: product-service-container
     ports:
       - "8081:8081"
     environment:
       EUREKA_URL: http://eureka-server:8761/eureka/
-      PRODUCTSERVICE_DB_URL: jdbc:postgresql://postgres-db:5432/postgres
-      PRODUCTSERVICE_DB_USER: postgres
-      PRODUCTSERVICE_DB_PASS: postgresql
-      PRODUCTSERVICE_DDL_AUTO: create
+      ELASTICSEARCH_HOST: ogonzalezl-6089145741.us-east-1.bonsaisearch.net:443
+      ELASTICSEARCH_USER: orhmb20dea
+      ELASTICSEARCH_PASS: 91418fl69v
     networks:
       - microservice-net
     depends_on:
       - eureka-server
-      - postgres-db
 
   order-service:
     build: ./OrderService
